@@ -1,4 +1,4 @@
-# Declare um vetor de inteiros, e mostre o maior valor
+# Declare um vetor de inteiros, e mostre o maior valor.
 
 array = []
 

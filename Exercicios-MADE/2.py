@@ -1,7 +1,4 @@
-# Declare um vetor de inteiro, e ordene em ordem crescente os valores em um novo vetor
-
-from multiprocessing.dummy import Array
-
+# Declare um vetor de inteiro, e ordene em ordem crescente os valores em um novo vetor.
 
 array = []
 

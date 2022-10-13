@@ -9,4 +9,5 @@ soma = 0
 for i in range (inicial, final + 1, 1):
     array.append(i)
     soma += i
+    
 print(f"A soma de {inicial} até {final} é: {soma}")
