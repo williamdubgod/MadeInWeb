@@ -8,7 +8,19 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: 100%;  
+}
+
+#login {
+    border-bottom: 1px solid rgb(255, 40, 112);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#register {
+    opacity: 0.4;
+    font-style: normal;
+    cursor: pointer;
 }
 
 .box {
@@ -18,7 +30,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     width: 30%;
-    height: 75%;
+    height: 80%;
     box-shadow: 5px 10px #888888;
 }
 
@@ -31,7 +43,7 @@ ul {
 }
 
 li {
-    margin-left: 8%;
+    margin-left: 6%;
     list-style: none;
 }
 
@@ -88,6 +100,7 @@ input {
 span {
     color: antiquewhite;
     text-align: center;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 480px) {
@@ -130,6 +143,7 @@ span {
     height: 50%;
    }
 }
+
 
 
 
