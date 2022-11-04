@@ -2,8 +2,8 @@
   <div class="box">
     <nav>
       <ul>
-        <li><a id="login" onclick="loginOn()">Entrar</a></li>
-        <li><a id="register" onclick="registrarOn()">Registrar</a></li>
+        <li><a id="login" @click="loginOn()">Entrar</a></li>
+        <li><a id="register" @click="registrarOn()">Registrar</a></li>
       </ul>
     </nav>
     <form id="logar">
@@ -40,6 +40,45 @@
 <script>
 export default {
   name: "LoginView",
+  data: () => ({
+    nome: 'Registrar',
+  }),
+  components: {},
+  methods: {
+
+    loginOn() {
+      const formLogin = document.querySelector('#logar')
+      const formRegistrar = document.querySelector('#registrar')
+      const login = document.querySelector('#login')
+      const register = document.querySelector('#register')
+
+      formLogin.style.display = "flex"
+      formRegistrar.style.display = "none"
+      login.style.opacity = "1"
+      register.style.opacity = "0.4"
+      register.style.border = "none"
+      register.style.fontWeight = "100"
+      login.style.fontWeight = "bold"
+      login.style.borderBottom = "1px solid rgb(255, 40, 112)"
+    },
+
+    registrarOn() {
+      const formLogin = document.querySelector('#logar')
+      const formRegistrar = document.querySelector('#registrar')
+      const login = document.querySelector('#login')
+      const register = document.querySelector('#register')
+
+      formLogin.style.display = "none"
+      formRegistrar.style.display = "flex"
+      register.style.borderBottom = "1px solid rgb(255, 40, 112)"
+      register.style.fontWeight = "bold"
+      register.style.opacity = "1"
+      login.style.opacity = "0.4"
+      login.style.border = "none"
+      login.style.fontWeight = "100"
+    }
+  },
+  computed: {},
 };
 </script>
 
