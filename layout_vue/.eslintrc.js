@@ -1,0 +1,30 @@
+module.exports = {
+  root: true,
+  env: {
+    node: true,
+  },
+  extends: ["plugin:vue/essential"],
+  parserOptions: {
+    parser: "@babel/eslint-parser",
+  },
+  rules: {
+    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+    quotes: 0,
+    "max-len": 0,
+    "max-classes-per-file": 0,
+    "no-shadow": 0,
+    indent: 0,
+    "no-tabs": 0,
+    "no-unused-vars": 0,
+    "no-spaces": 0,
+    "no-unused-labels": 0,
+    "no-unused-expressions": 0,
+    "no-labels": 0,
+    "vue/no-unused-components": 0,
+    "object-shorthand": 0,
+    "func-names": 0,
+    "comma-dangle": 0,
+    "no-multiple-empty-lines": 0,
+  },
+};
