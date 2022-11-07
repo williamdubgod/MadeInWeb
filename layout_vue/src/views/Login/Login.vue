@@ -8,7 +8,7 @@
     </nav>
     <form id="logar">
       <label for="email">Email</label>
-      <input type="email" name="email" id="email" required />
+      <input type="email" name="email" id="email" v-model="username" required />
       <label for="senha">Senha</label>
       <input
         type="password"
@@ -16,10 +16,17 @@
         id="senha"
         pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{6,}$"
         title="A senha deve conter no mínimo 6 caracteres com pelo menos uma letra maiúscula, uma minúscula e um símbolo."
+        v-model="password"
         required
       />
       <div class="botao">
-        <input id="btn" type="submit" value="Entrar" style="font-weight: bold" />
+        <input
+          id="btn"
+          type="submit"
+          value="Entrar"
+          @click.prevent="login"
+          style="font-weight: bold"
+        />
         <span>Esqueceu a senha?</span>
       </div>
     </form>
@@ -38,47 +45,67 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+import { LOGIN_REQUEST } from "@/store/modules/common/auth/actions.js";
+
 export default {
   name: "LoginView",
   data: () => ({
-    nome: 'Registrar',
+    nome: "Registrar",
+    username: null,
+    password: null,
   }),
   components: {},
   methods: {
+    ...mapActions("auth", {
+      loginRequest: LOGIN_REQUEST,
+    }),
+
+    login() {
+      const body = {
+        username: this.username,
+        password: this.password,
+      };
+      this.loginRequest({ body: body }).then((resposta) => {
+        console.log(resposta);
+      });
+    },
 
     loginOn() {
-      const formLogin = document.querySelector('#logar')
-      const formRegistrar = document.querySelector('#registrar')
-      const login = document.querySelector('#login')
-      const register = document.querySelector('#register')
+      const formLogin = document.querySelector("#logar");
+      const formRegistrar = document.querySelector("#registrar");
+      const login = document.querySelector("#login");
+      const register = document.querySelector("#register");
 
-      formLogin.style.display = "flex"
-      formRegistrar.style.display = "none"
-      login.style.opacity = "1"
-      register.style.opacity = "0.4"
-      register.style.border = "none"
-      register.style.fontWeight = "100"
-      login.style.fontWeight = "bold"
-      login.style.borderBottom = "1px solid rgb(255, 40, 112)"
+      formLogin.style.display = "flex";
+      formRegistrar.style.display = "none";
+      login.style.opacity = "1";
+      register.style.opacity = "0.4";
+      register.style.border = "none";
+      register.style.fontWeight = "100";
+      login.style.fontWeight = "bold";
+      login.style.borderBottom = "1px solid rgb(255, 40, 112)";
     },
 
     registrarOn() {
-      const formLogin = document.querySelector('#logar')
-      const formRegistrar = document.querySelector('#registrar')
-      const login = document.querySelector('#login')
-      const register = document.querySelector('#register')
+      const formLogin = document.querySelector("#logar");
+      const formRegistrar = document.querySelector("#registrar");
+      const login = document.querySelector("#login");
+      const register = document.querySelector("#register");
 
-      formLogin.style.display = "none"
-      formRegistrar.style.display = "flex"
-      register.style.borderBottom = "1px solid rgb(255, 40, 112)"
-      register.style.fontWeight = "bold"
-      register.style.opacity = "1"
-      login.style.opacity = "0.4"
-      login.style.border = "none"
-      login.style.fontWeight = "100"
-    }
+      formLogin.style.display = "none";
+      formRegistrar.style.display = "flex";
+      register.style.borderBottom = "1px solid rgb(255, 40, 112)";
+      register.style.fontWeight = "bold";
+      register.style.opacity = "1";
+      login.style.opacity = "0.4";
+      login.style.border = "none";
+      login.style.fontWeight = "100";
+    },
   },
-  computed: {},
+  computed: {
+    ...mapGetters("auth", ["isLoadingAuth"]),
+  },
 };
 </script>
 
