@@ -7,7 +7,9 @@
 <style lang="scss">
 #app {
   background-image: url("@/assets/fundo.jpg");
-  background-size: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,4 +1,11 @@
-import { LOGIN_REQUEST, LOGIN_REQUEST_SUCCESS, LOGIN_REQUEST_ERROR } from "./actions";
+import {
+  LOGIN_REQUEST,
+  LOGIN_REQUEST_SUCCESS,
+  LOGIN_REQUEST_ERROR,
+  REGISTRAR_REQUEST,
+  REGISTRAR_REQUEST_SUCCESS,
+  REGISTRAR_REQUEST_ERROR,
+} from "./actions";
 
 import api from "@/utils/api";
 import router from "@/router";
@@ -8,6 +15,7 @@ const { http } = api.getInstance();
 const defaultState = () => ({
   token: localStorage.getItem("token") || null,
   isLoadingAuth: "",
+  isLoadingRegister: "",
 });
 
 const state = defaultState();
@@ -15,6 +23,7 @@ const state = defaultState();
 const getters = {
   token: (state) => state.token,
   isLoadingAuth: (state) => state.isLoadingAuth === "loading",
+  isLoadingRegister: (state) => state.isLoadingRegister === "loading",
 };
 
 const mutations = {
@@ -35,6 +44,15 @@ const mutations = {
     state.isLoadingAuth = "error";
     localStorage.removeItem("token");
   },
+  [REGISTRAR_REQUEST]: (state) => {
+    state.isLoadingRegister = "loading";
+  },
+  [REGISTRAR_REQUEST_SUCCESS]: (state) => {
+    state.isLoadingRegister = "success";
+  },
+  [REGISTRAR_REQUEST_ERROR]: (state) => {
+    state.isLoadingRegister = "error";
+  },
 };
 
 const actions = {
@@ -53,6 +71,26 @@ const actions = {
         })
         .catch((error) => {
           commit(LOGIN_REQUEST_ERROR);
+          reject(error);
+        });
+    });
+  },
+
+  [REGISTRAR_REQUEST]({ commit }, { body }) {
+    return new Promise((resolve, reject) => {
+      commit(REGISTRAR_REQUEST);
+
+      http({
+        method: "post",
+        url: `/auth/register`,
+        data: body,
+      })
+        .then((response) => {
+          commit(REGISTRAR_REQUEST_SUCCESS, { data: response.data });
+          resolve(response);
+        })
+        .catch((error) => {
+          commit(REGISTRAR_REQUEST_ERROR);
           reject(error);
         });
     });

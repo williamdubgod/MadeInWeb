@@ -7,9 +7,30 @@
       </ul>
     </nav>
     <form id="logar">
-      <label for="email">Email</label>
-      <input type="email" name="email" id="email" v-model="username" required />
-      <label for="senha">Senha</label>
+      <label for="username">Usuário</label>
+      <input type="text" name="username" id="username" v-model="username" required />
+      <label for="password">Senha</label>
+      <input type="password" name="senha" id="senha" v-model="password" required />
+      <div class="botao">
+        <input
+          id="btn"
+          type="submit"
+          value="Entrar"
+          @click.prevent="login"
+          style="font-weight: bold"
+        />
+
+        <span>Esqueceu a senha?</span>
+      </div>
+    </form>
+    <form id="registrar" style="margin: 25px auto; display: none">
+      <label for="username">Nome de usuário</label>
+      <input type="text" name="username" id="username" v-model="username" required />
+      <label for="name">Nome</label>
+      <input type="text" name="name" id="name" v-model="name" required />
+      <label for="email">E-mail</label>
+      <input type="email" name="email" id="email" required v-model="email" />
+      <label for="password">Senha</label>
       <input
         type="password"
         name="senha"
@@ -19,26 +40,9 @@
         v-model="password"
         required
       />
+
       <div class="botao">
-        <input
-          id="btn"
-          type="submit"
-          value="Entrar"
-          @click.prevent="login"
-          style="font-weight: bold"
-        />
-        <span>Esqueceu a senha?</span>
-      </div>
-    </form>
-    <form id="registrar" style="margin: 25px auto; display: none">
-      <label for="nome">Nome</label>
-      <input type="text" name="nome" id="nome" required />
-      <label for="sobrenome">Sobrenome</label>
-      <input type="text" name="sobrenome" id="sobrenome" required />
-      <label for="nascimento">Data de nascimento</label>
-      <input type="date" name="nascimento" id="nascimento" required />
-      <div class="botao">
-        <input id="btn" type="submit" value="Registrar-se" />
+        <input id="btn" type="submit" value="Registrar-se" @click.prevent="registrar" />
       </div>
     </form>
   </div>
@@ -46,7 +50,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { LOGIN_REQUEST } from "@/store/modules/common/auth/actions.js";
+import { LOGIN_REQUEST, REGISTRAR_REQUEST } from "@/store/modules/common/auth/actions.js";
 
 export default {
   name: "LoginView",
@@ -59,6 +63,7 @@ export default {
   methods: {
     ...mapActions("auth", {
       loginRequest: LOGIN_REQUEST,
+      registrarRequest: REGISTRAR_REQUEST,
     }),
 
     login() {
@@ -67,6 +72,18 @@ export default {
         password: this.password,
       };
       this.loginRequest({ body: body }).then((resposta) => {
+        console.log(resposta);
+      });
+    },
+
+    registrar() {
+      const body = {
+        username: this.username,
+        name: this.name,
+        email: this.email,
+        password: this.password,
+      };
+      this.registrarRequest({ body: body }).then((resposta) => {
         console.log(resposta);
       });
     },
