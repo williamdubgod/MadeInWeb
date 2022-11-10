@@ -1,0 +1,4 @@
+- [ ] criar input
+- [ ] criar lista
+- [ ] adicionar input na lista
+- [ ] remover item da lista

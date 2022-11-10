@@ -4,6 +4,13 @@
       <ul>
         <li><a id="login" @click="loginOn()">Entrar</a></li>
         <li><a id="register" @click="registrarOn()">Registrar</a></li>
+        <li>
+          <a
+            href="http://localhost:8080/users"
+            style="opacity: 0.4; font-style: normal; cursor: pointer"
+            >Usuários</a
+          >
+        </li>
       </ul>
     </nav>
     <form id="logar">
