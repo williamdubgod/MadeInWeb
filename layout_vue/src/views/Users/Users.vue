@@ -2,18 +2,9 @@
   <div class="box">
     <div class="divTable">
       <section>
-        <select name="Usuarios">
-          <option>Usuários</option>
-          <option v-for="user in users" :key="user.username">{{ user.username }}</option>
-        </select>
-        <select name="Nomes">
-          <option>Nomes</option>
-          <option v-for="user in users" :key="user.username">{{ user.name }}</option>
-        </select>
-        <select name="Emails">
-          <option>E-Mails</option>
-          <option v-for="user in users" :key="user.username">{{ user.email }}</option>
-        </select>
+        <input type="text" placeholder="Usuários" v-model="searchUser" />
+        <input type="text" placeholder="Nomes" />
+        <input type="text" placeholder="E-Mails" />
       </section>
       <table>
         <thead>
@@ -25,7 +16,7 @@
         </thead>
         <hr />
         <tbody>
-          <tr v-for="user in users" :key="user.username" id="linhas">
+          <tr v-for="user in usersFiltered" :key="user.username" id="linhas">
             <td>{{ user.username }}</td>
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
@@ -44,10 +35,20 @@ export default {
   data() {
     return {
       users: [],
+      searchUser: "",
     };
   },
   mounted() {
     this.buscarUsuarios();
+  },
+  computed: {
+    usersFiltered() {
+      let usuarios = [];
+      usuarios = this.users.filter((user) => {
+        return user.username.toLowerCase().indexOf(this.searchUser.toLowerCase()) > -1;
+      });
+      return usuarios;
+    },
   },
   methods: {
     buscarUsuarios() {
@@ -61,6 +62,9 @@ export default {
         .then((response) => {
           this.users = response.data;
         });
+    },
+    limparFiltro() {
+      this.searchUser = "";
     },
   },
 };
@@ -88,7 +92,7 @@ export default {
   justify-content: center;
 }
 
-select {
+input {
   width: 356px;
   height: 44px;
   color: #5d6779;
