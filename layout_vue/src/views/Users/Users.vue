@@ -2,9 +2,8 @@
   <div class="box">
     <div class="divTable">
       <section>
-        <input type="text" placeholder="Usuários" v-model="searchUser" />
-        <input type="text" placeholder="Nomes" />
-        <input type="text" placeholder="E-Mails" />
+        <input type="text" placeholder="Buscar por nome, usuário ou e-mail" v-model="search" />
+        <button @click="limparFiltro">Limpar filtro</button>
       </section>
       <table>
         <thead>
@@ -35,7 +34,7 @@ export default {
   data() {
     return {
       users: [],
-      searchUser: "",
+      search: "",
     };
   },
   mounted() {
@@ -45,7 +44,11 @@ export default {
     usersFiltered() {
       let usuarios = [];
       usuarios = this.users.filter((user) => {
-        return user.username.toLowerCase().indexOf(this.searchUser.toLowerCase()) > -1;
+        return (
+          user.username.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+          user.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+          user.email.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+        );
       });
       return usuarios;
     },
@@ -64,7 +67,7 @@ export default {
         });
     },
     limparFiltro() {
-      this.searchUser = "";
+      this.search = "";
     },
   },
 };
@@ -88,18 +91,31 @@ export default {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
 input {
   width: 356px;
   height: 44px;
   color: #5d6779;
-  margin-right: 10px;
+  margin-bottom: 15px;
   box-sizing: border-box;
   border: 1px solid #bcc2cd;
   border-radius: 5px;
+}
+
+button {
+  height: 44px;
+  border: 1px solid #bcc2cd;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #e5e9f2;
+}
+
+button:hover {
+  background-color: #5d6779;
+  color: #f5f5f5;
 }
 
 table {
