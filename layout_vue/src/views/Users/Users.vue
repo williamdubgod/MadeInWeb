@@ -13,9 +13,8 @@
             <th>E-Mail</th>
           </tr>
         </thead>
-        <hr />
         <tbody>
-          <tr v-for="user in usersFiltered" :key="user.username" id="linhas">
+          <tr v-for="user in usuariosFiltrados" :key="user.username" class="linhas">
             <td>{{ user.username }}</td>
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
@@ -41,7 +40,7 @@ export default {
     this.buscarUsuarios();
   },
   computed: {
-    usersFiltered() {
+    usuariosFiltrados() {
       let usuarios = [];
       usuarios = this.users.filter((user) => {
         return (
@@ -91,8 +90,8 @@ export default {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  padding-top: 50px;
 }
 
 input {
@@ -120,7 +119,11 @@ button:hover {
 
 table {
   width: 1102px;
-  height: 346px;
+  border-collapse: collapse;
+}
+
+thead {
+  border-bottom: 1px solid #bcc2cd;
 }
 
 th {
@@ -131,8 +134,12 @@ th {
   line-height: 21px;
 }
 
+tr {
+  height: 40px;
+}
+
 td {
-  width: 219.76px;
+  width: calc(100% / 3);
   padding: 15px;
   font-family: "Poppins";
   font-style: normal;
@@ -141,7 +148,7 @@ td {
   line-height: 21px;
 }
 
-#linhas:nth-child(odd) {
+.linhas:nth-child(odd) {
   background-color: #e5e9f2;
 }
 </style>
